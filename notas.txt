@@ -1,0 +1,44 @@
+CRUD class
+addClass (date) {
+    creamos la clase y creamos las asistencias
+}
+getClass() {
+
+}
+getClass() {
+    paginamos por cada semana o mes
+}
+
+
+CRUD asistencias
+updateAttendace(params.id) {
+    actualizamos la asistencias
+}
+getAsistencias() {
+
+}
+
+CRUD teacher
+addTeacher
+updateTeacher
+deleteTeacher
+getTeacher
+getTeachers
+
+CRUD Student
+addStudent
+updateStudent
+deleteStudent
+getStudent
+getStudents
+
+CRUD Parent
+addParent
+updateParent
+deleteParent
+getParent
+getParents
+
+CRUD subject
+addSubject
+updateSubject
