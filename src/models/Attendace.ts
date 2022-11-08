@@ -52,8 +52,8 @@ export default function initParentModel(sequelize: Sequelize, DataTypes: typeof 
     },
   }, {
     sequelize,
-    modelName: 'parent',
-    tableName: 'parents',
+    modelName: 'attendace',
+    tableName: 'attendaces',
     timestamps: true,
     paranoid: false,
     underscored: true,
