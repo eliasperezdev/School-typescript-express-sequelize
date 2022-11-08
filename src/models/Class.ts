@@ -14,7 +14,7 @@ export class Class extends Model<InferAttributes<Class>, InferCreationAttributes
   declare updatedAt: CreationOptional<Date>;
 
   declare studentId: ForeignKey<Subject['id']>;
-  declare classId: ForeignKey<Teacher['id']>;
+  declare subjectId: ForeignKey<Teacher['id']>;
   declare periodId: ForeignKey<Period['id']>;
 
   static associate(models: any) {
@@ -46,11 +46,11 @@ export default function initClassModel(sequelize: Sequelize, DataTypes: typeof t
         key: 'id',
       },
     },
-    classId: {
+    subjectId: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: true,
       references: {
-        model: 'classes',
+        model: 'subjects',
         key: 'id',
       },
     },
