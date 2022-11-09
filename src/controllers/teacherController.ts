@@ -25,7 +25,16 @@ const getTeachers = async (req: Request, res: Response) => {
 };
 
 const getTeacher = async (req: Request, res: Response) => {
-  console.log('get Teacher');
+  const { id } = req.params;
+  try {
+    const teacher = await db.Teacher.findOne({ where: { id } });
+    if (!teacher) {
+      return res.status(404).json('No found');
+    }
+    return res.status(200).json(teacher);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
 };
 
 const updateTeacher = async (req: Request, res: Response) => {
@@ -34,7 +43,7 @@ const updateTeacher = async (req: Request, res: Response) => {
     firstName, lastName, phone, email,
   } = req.body;
   try {
-    const teacher = await db.Teacher.findOne({ where: { id }});
+    const teacher = await db.Teacher.findOne({ where: { id } });
     if (!teacher) {
       return res.status(404).json('No found');
     }
