@@ -1,23 +1,73 @@
 import { Request, Response } from 'express';
+import db from '../models';
 
 const addTeacher = async (req: Request, res: Response) => {
-  console.log('add Teacher');
+  const {
+    firstName, lastName, phone, email,
+  } = req.body;
+
+  try {
+    const newTeacher = await db.Teacher.create({
+      firstName,
+      lastName,
+      phone,
+      email,
+    });
+    return res.status(201).json(newTeacher);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
 };
 
 const getTeachers = async (req: Request, res: Response) => {
-  console.log('get Teachers');
+  try {
+    const teachers = await db.Teacher.findAll();
+    return res.status(200).json(teachers);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
 };
 
 const getTeacher = async (req: Request, res: Response) => {
-  console.log('get Teacher');
+  const { id } = req.params;
+  try {
+    const teacher = await db.Teacher.findOne({ where: { id } });
+    if (!teacher) {
+      return res.status(404).json('No found');
+    }
+    return res.status(200).json(teacher);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
 };
 
 const updateTeacher = async (req: Request, res: Response) => {
-  console.log('update Teacher');
+  const { id } = req.params;
+  const {
+    firstName, lastName, phone, email,
+  } = req.body;
+  try {
+    const teacher = await db.Teacher.findOne({ where: { id } });
+    if (!teacher) {
+      return res.status(404).json('No found');
+    }
+    if (firstName) teacher.firstName = firstName;
+    if (lastName) teacher.lastName = lastName;
+    if (phone) teacher.phone = phone;
+    if (email) teacher.email = email;
+
+    teacher.save();
+    return res.status(200).json(teacher);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
 };
 
 const deleteTeacher = async (req: Request, res: Response) => {
-  console.log('delete Teacher');
+  const { id } = req.params;
+  const teacherDeleted = await db.Teacher.destroy({ where: { id } });
+  if (!teacherDeleted) return res.status(500).json('Teacher not found');
+  return res.status(204);
 };
 
 export default {

@@ -9,7 +9,6 @@ export class Teacher extends Model<InferAttributes<Teacher>, InferCreationAttrib
   declare lastName: string;
   declare phone: number;
   declare email: string;
-  declare title: string;
 
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
@@ -40,10 +39,6 @@ export default function initTeacherModel(sequelize: Sequelize, DataTypes: typeof
       allowNull: false,
     },
     email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
