@@ -2,7 +2,20 @@ import { Request, Response } from 'express';
 import db from '../models';
 
 const addPeriod = async (req: Request, res: Response) => {
-  console.log('add Period');
+  const {
+    year, startDate, endDate,
+  } = req.body;
+
+  try {
+    const newPeriod = await db.Period.create({
+      year,
+      startDate,
+      endDate,
+    });
+    return res.status(201).json(newPeriod);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
 };
 
 const getPeriods = async (req: Request, res: Response) => {
@@ -22,7 +35,7 @@ const getPeriod = async (_req: Request, _res: Response) => {
 const updatePeriod = async (req: Request, res: Response) => {
   const { id } = req.params;
   const {
-    startDate, endDate
+    startDate, endDate,
   } = req.body;
   try {
     const period = await db.Period.findOne({ where: { id } });
