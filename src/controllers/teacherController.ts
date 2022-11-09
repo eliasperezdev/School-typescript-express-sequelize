@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import db from '../models';
-import { Teacher } from '../models/Teacher';
 
 const addTeacher = async (req: Request, res: Response) => {
   const {
@@ -21,7 +20,12 @@ const addTeacher = async (req: Request, res: Response) => {
 };
 
 const getTeachers = async (req: Request, res: Response) => {
-  console.log('get Teachers');
+  try {
+    const teachers = await db.Teacher.findAll();
+    return res.status(200).json(teachers);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
 };
 
 const getTeacher = async (req: Request, res: Response) => {
