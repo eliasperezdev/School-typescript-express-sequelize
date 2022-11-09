@@ -1,7 +1,20 @@
 import { Request, Response } from 'express';
+import db from '../models';
 
 const addTeacher = async (req: Request, res: Response) => {
-  console.log('add Teacher');
+  const { firstName, lastName, phone, email } = req.body;
+
+  try {
+    const newTeacher = await db.Teacher.create({
+      firstName,
+      lastName,
+      phone,
+      email,
+    });
+    return res.status(201).json(newTeacher);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
 };
 
 const getTeachers = async (req: Request, res: Response) => {
