@@ -51,7 +51,10 @@ const updateTeacher = async (req: Request, res: Response) => {
 };
 
 const deleteTeacher = async (req: Request, res: Response) => {
-  console.log('delete Teacher');
+  const { id } = req.params;
+  const teacherDeleted = await db.Teacher.destroy({ where: { id } });
+  if (!teacherDeleted) return res.status(500).json('Teacher not found');
+  return res.status(204);
 };
 
 export default {
