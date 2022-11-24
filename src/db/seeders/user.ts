@@ -17,6 +17,11 @@ module.exports = {
         name: 'admin',
       },
     }, ['id']));
+    const teacherId = (await queryInterface.rawSelect('roles', {
+      where: {
+        name: 'teacher',
+      },
+    }, ['id']));
 
     const adminUsers = [{
       name: 'admin',
@@ -33,6 +38,22 @@ module.exports = {
       created_at: new Date(),
       updated_at: new Date(),
       role_id: adminId,
+    }];
+    const teacherUsers = [{
+      name: 'teacher',
+      email: 'teacher@teacher.com',
+      password: (await bcrypt.hash('teacher', 10)),
+      created_at: new Date(),
+      updated_at: new Date(),
+      role_id: teacherId,
+    },
+    {
+      name: 'teacher2',
+      email: 'teacher2@teacher.com',
+      password: (await bcrypt.hash('teacher2', 10)),
+      created_at: new Date(),
+      updated_at: new Date(),
+      role_id: teacherId,
     }];
     const normalUsers = [{
       name: 'user',
@@ -53,6 +74,7 @@ module.exports = {
 
     await queryInterface.bulkInsert('users', adminUsers, {});
     await queryInterface.bulkInsert('users', normalUsers, {});
+    await queryInterface.bulkInsert('users', teacherUsers, {});
   },
 
   async down(queryInterface: sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
